@@ -1,6 +1,6 @@
 require 'random_data'
 # Create Sponsored posts
-25.times.create!
+25.times do
 SponsoredPost.create!(
   topic: topics.sample,
   title: RandomData.random_sentence,
