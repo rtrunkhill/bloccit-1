@@ -18,8 +18,34 @@
      </div>
    </div>
  </div>
+ <% if user_has_posts_or_comments? %>
  <h2>Posts</h2>
  <%= render @user.posts %>
 
  <h2>Comments</h2>
  <%= render @user.comments %>
+ <% else %>
+  <h3><%= @user.name %> has not submitted any posts yet.</h3>
+<% end %>
+
+<% if user_has_favorites? %>
+  <h2>Favorites</h2>
+  <% @user.favorites.each do |favorite| %>
+    <div class="row">
+      <div class="col-md-8">
+        <div class="media">
+          <br />
+          <% post_avatar_url = @user.fav_post_user_gravatar(favorite.post_id) %>
+          <% unless post_avatar_url.nil? %>
+            <div class="media-left">
+              <%= image_tag post_avatar_url, class: 'media-object' %>
+            </div>
+            <% end %>
+            <div class="media-body">
+              <h3 class="media-heading"> <%= render partial: 'posts/post', locals: { post: favorite.post } %> </h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+<% end %>

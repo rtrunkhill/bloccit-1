@@ -31,4 +31,14 @@ class User < ActiveRecord::Base
        gravatar_id = Digest::MD5::hexdigest(self.email).downcase
        "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{size}"
      end
+
+     def fav_post_user_gravatar(post_id)
+    user_post = Post.where(id: post_id)
+    user_post_id = user_post.first.user_id
+    @gravatar_user = User.where(id: user_post_id)
+    gravatar_email = @gravatar_user.first.email
+    gravatar_id = Digest::MD5::hexdigest(gravatar_email).downcase
+    "http://gravatar.com/avatar/#{gravatar_id}.png?s=#{72}"
+   end
+   
    end
